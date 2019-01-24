@@ -31,11 +31,9 @@ See [CHANGELOG.md](https://github.com/kristophjunge/docker-test-saml-idp/blob/ma
 ```
 docker run --name=testsamlidp_idp \
 -p 8080:8080 \
--p 8443:8443 \
--e SIMPLESAMLPHP_SP_ENTITY_ID=http://app.example.com \
--e SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-acs.php/test-sp \
--e SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE=http://localhost/simplesaml/module.php/saml/sp/saml2-logout.php/test-sp \
--d kristophjunge/test-saml-idp
+-e VIRTUAL_HOST=app.example.com \
+-e MDX_URL=https://mdx.eduid.hu/entities \
+-d szabogyula/test-saml-idp
 ```
 
 There are two static users configured in the IdP with the following data:

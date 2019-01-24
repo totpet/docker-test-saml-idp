@@ -21,7 +21,7 @@ $config = array(
      * external url, no matter where you come from (direct access or via the
      * reverse proxy).
      */
-    'baseurlpath' => 'simplesaml/',
+    'baseurlpath' => 'https://'.getenv('VIRTUAL_HOST').'/simplesaml/',
     'certdir' => 'cert/',
     'loggingdir' => 'log/',
     'datadir' => 'data/',
@@ -669,6 +669,7 @@ $config = array(
      */
     'metadata.sources' => array(
         array('type' => 'flatfile'),
+        array('type' => 'mdx', server => getenv('MDX_URL'))
     ),
 
 
