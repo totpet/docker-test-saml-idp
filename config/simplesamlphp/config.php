@@ -520,11 +520,12 @@ $config = array(
         */
 
         // Adopts language from attribute to use in UI
-        30 => 'core:LanguageAdaptor',
+        //30 => 'core:LanguageAdaptor',
 
         /* Add a realm attribute from edupersonprincipalname
         40 => 'core:AttributeRealm',
          */
+        /*
         45 => array(
             'class'         => 'core:StatisticsWithAttribute',
             'attributename' => 'realm',
@@ -534,10 +535,13 @@ $config = array(
         49 => array(
             'class' => 'core:AttributeMap', 'name2oid'
         ), 
+         */
         /* When called without parameters, it will fallback to filter attributes ‹the old way›
          * by checking the 'attributes' parameter in metadata on IdP hosted and SP remote.
          */
+        /*
         50 => 'core:AttributeLimit',
+         */
 
         /*
          * Search attribute "distinguishedName" for pattern and replaces if found
@@ -562,7 +566,9 @@ $config = array(
         ),
          */
         // If language is set in Consent module it will be added as an attribute.
+        /*
         99 => 'core:LanguageAdaptor',
+         */
     ),
     /*
      * Authentication processing filters that will be executed for all SPs
