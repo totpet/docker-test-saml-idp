@@ -28,6 +28,7 @@ $metadata['__DYNAMIC:1__'] = [
     /* Uncomment the following to use the uri NameFormat on attributes. */
     
     'attributes.NameFormat' => 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri',
+    'userid.attribute' => 'uid',
 
     'authproc' => array(
         /* Enable the authproc filter below to add URN Prefixces to all attributes
