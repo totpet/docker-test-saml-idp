@@ -29,6 +29,7 @@ $metadata['__DYNAMIC:1__'] = [
     
     'attributes.NameFormat' => 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri',
     'userid.attribute' => 'uid',
+    'scope' => [ getenv('VIRTUAL_HOST') ],
 
     'authproc' => array(
         /* Enable the authproc filter below to add URN Prefixces to all attributes
