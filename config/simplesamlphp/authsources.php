@@ -1,28 +1,27 @@
 <?php
 
-$config = array(
+$config = [
 
-    'admin' => array(
+    'admin' => [
         'core:AdminPassword',
-    ),
-    'example-userpass' => array(
+    ],
+    'example-userpass' => [
         'exampleauth:UserPass',
-        'user1:user1pass' => array(
-            'uid' => array('1'),
-            'eduPersonAffiliation' => array('staff'),
-            'eduPersonScopedAffiliation' => array('staff@'.getenv('VIRTUAL_HOST')),
+        'user1:user1pass' => [
+            'uid' => ['1'],
+            'eduPersonAffiliation' => ['staff'],
+            'eduPersonScopedAffiliation' => ['staff@'.getenv('VIRTUAL_HOST')],
             'mail' => 'user1@'.getenv('VIRTUAL_HOST'),
             'eduPersonPrincipalName' => 'user1@'.getenv('VIRTUAL_HOST'),
-	    'displayName' => 'User1 Displayname',
-        ),
-        'user2:user2pass' => array(
-            'uid' => array('2'),
-            'eduPersonAffiliation' => array('staff'),
-            'eduPersonScopedAffiliation' => array('staff@'.getenv('VIRTUAL_HOST')),
+            'displayName' => 'User1 Displayname',
+        ],
+        'user2:user2pass' => [
+            'uid' => ['2'],
+            'eduPersonAffiliation' => ['staff'],
+            'eduPersonScopedAffiliation' => ['staff@'.getenv('VIRTUAL_HOST')],
             'mail' => 'user2@'.getenv('VIRTUAL_HOST'),
             'eduPersonPrincipalName' => 'user2@'.getenv('VIRTUAL_HOST'),
-	    'displayName' => 'User2 Displayname',
-        ),
-    ),
-
-);
+            'displayName' => 'User2 Displayname',
+        ],
+    ],
+];

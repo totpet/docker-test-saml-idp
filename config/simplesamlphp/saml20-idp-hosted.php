@@ -26,12 +26,12 @@ $metadata['__DYNAMIC:1__'] = [
     'auth' => 'example-userpass',
 
     /* Uncomment the following to use the uri NameFormat on attributes. */
-    
+
     'attributes.NameFormat' => 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri',
     'userid.attribute' => 'uid',
     'scope' => [ getenv('VIRTUAL_HOST') ],
 
-    'authproc' => array(
+    'authproc' => [
         /* Enable the authproc filter below to add URN Prefixces to all attributes
          10 => array(
              'class' => 'core:AttributeMap', 'addurnprefix'
@@ -47,15 +47,15 @@ $metadata['__DYNAMIC:1__'] = [
         /* Add a realm attribute from edupersonprincipalname
         40 => 'core:AttributeRealm',
          */
-        45 => array(
+        45 => [
             'class'         => 'core:StatisticsWithAttribute',
             'attributename' => 'realm',
             'type'          => 'saml20-idp-SSO',
-        ),
+        ],
 
-        49 => array(
+        49 => [
             'class' => 'core:AttributeMap', 'name2oid'
-        ), 
+        ],
         /* When called without parameters, it will fallback to filter attributes ‹the old way›
          * by checking the 'attributes' parameter in metadata on IdP hosted and SP remote.
          */
@@ -64,26 +64,26 @@ $metadata['__DYNAMIC:1__'] = [
         /*
          * Search attribute "distinguishedName" for pattern and replaces if found
 
-        60 => array(
+        60 => [
             'class' => 'core:AttributeAlter',
             'pattern' => '/OU=studerende/',
             'replacement' => 'Student',
             'subject' => 'distinguishedName',
             '%replace',
-        ),
+        ],
          */
 
         /*
          * Consent module is enabled (with no permanent storage, using cookies).
 
-        90 => array(
+        90 => [
             'class' => 'consent:Consent',
             'store' => 'consent:Cookie',
             'focus' => 'yes',
             'checked' => TRUE
-        ),
+        ],
          */
-    ),
+    ],
 
     /*
      * Uncomment the following to specify the registration information in the
