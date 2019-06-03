@@ -3,13 +3,14 @@ MAINTAINER Gyula Szabó <gyufi@szabocsalad.com>
 
 # Utilities
 RUN apt-get update && \
-    apt-get -y install apt-transport-https git curl vim --no-install-recommends && \
+    apt-get -y install apt-transport-https git --no-install-recommends && \
     rm -r /var/lib/apt/lists/*
 
 # SimpleSAMLphp
 ARG SIMPLESAMLPHP_VERSION=1.17.2
-RUN curl -s -L -o /tmp/simplesamlphp.tar.gz https://github.com/simplesamlphp/simplesamlphp/releases/download/v$SIMPLESAMLPHP_VERSION/simplesamlphp-$SIMPLESAMLPHP_VERSION.tar.gz && \
-    tar xzf /tmp/simplesamlphp.tar.gz -C /tmp && \
+ADD https://github.com/simplesamlphp/simplesamlphp/releases/download/v$SIMPLESAMLPHP_VERSION/simplesamlphp-$SIMPLESAMLPHP_VERSION.tar.gz /tmp/simplesamlphp.tar.gz
+
+RUN tar xzf /tmp/simplesamlphp.tar.gz -C /tmp && \
     rm -f /tmp/simplesamlphp.tar.gz  && \
     mv /tmp/simplesamlphp-* /var/www/simplesamlphp && \
     touch /var/www/simplesamlphp/modules/exampleauth/enable
@@ -28,4 +29,3 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
 
 # Set work dir
 WORKDIR /var/www/simplesamlphp
-
