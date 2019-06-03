@@ -1,4 +1,4 @@
-FROM php:7.1-apache
+FROM php:7.3-apache
 MAINTAINER Gyula Szabó <gyufi@szabocsalad.com>
 
 ENV VIRTUAL_HOST idp
@@ -6,11 +6,11 @@ ENV MDX_URL http://localhost/md.xml
 
 # Utilities
 RUN apt-get update && \
-    apt-get -y install apt-transport-https git --no-install-recommends && \
+    apt-get -y install apt-transport-https curl --no-install-recommends && \
     rm -r /var/lib/apt/lists/*
 
 # SimpleSAMLphp
-ARG SIMPLESAMLPHP_VERSION=1.17.2
+ARG SIMPLESAMLPHP_VERSION=1.17.4
 ADD https://github.com/simplesamlphp/simplesamlphp/releases/download/v$SIMPLESAMLPHP_VERSION/simplesamlphp-$SIMPLESAMLPHP_VERSION.tar.gz /tmp/simplesamlphp.tar.gz
 
 RUN tar xzf /tmp/simplesamlphp.tar.gz -C /tmp && \
