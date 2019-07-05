@@ -1,6 +1,9 @@
 FROM php:7.1-apache
 MAINTAINER Gyula Szabó <gyufi@szabocsalad.com>
 
+ENV VIRTUAL_HOST idp
+ENV MDX_URL http://localhost/md.xml
+
 # Utilities
 RUN apt-get update && \
     apt-get -y install apt-transport-https git --no-install-recommends && \
