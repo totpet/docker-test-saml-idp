@@ -267,8 +267,8 @@ $config = [
      * Options: [syslog,file,errorlog]
      *
      */
-    'logging.level' => SimpleSAML\Logger::NOTICE,
-    'logging.handler' => 'syslog',
+    'logging.level' => SimpleSAML\Logger::DEBUG,
+    'logging.handler' => 'errorlog',
 
     /*
      * Specify the format of the logs. Its use varies depending on the log handler used (for instance, you cannot
@@ -545,6 +545,18 @@ $config = [
     'session.cookie.secure' => false,
 
     /*
+     * Set the SameSite attribute in the cookie.
+     *
+     * You can set this to the strings 'None', 'Lax', or 'Strict' to support
+     * the RFC6265bis SameSite cookie attribute. If set to null, no SameSite
+     * attribute will be sent.
+     *
+     * Example:
+     *  'session.cookie.samesite' => 'None',
+     */
+    'session.cookie.samesite' => null,
+
+    /*
      * Options to override the default settings for php sessions.
      */
     'session.phpsession.cookiename' => 'SimpleSAML',
@@ -699,7 +711,7 @@ $config = [
          * establishing that if a translation for the "no" language code is
          * not available, we look for translations in "nb" (Norwegian Bokmål),
          * and so on, in that order.
-         */
+     */
         'priorities' => [
             'no' => ['nb', 'nn', 'en', 'se'],
             'nb' => ['no', 'nn', 'en', 'se'],
@@ -736,6 +748,7 @@ $config = [
     'language.cookie.secure' => false,
     'language.cookie.httponly' => false,
     'language.cookie.lifetime' => (60 * 60 * 24 * 900),
+    'language.cookie.samesite' => null,
 
     /**
      * Custom getLanguage function called from SimpleSAML\Locale\Language::getLanguage().
@@ -819,7 +832,8 @@ $config = [
      *
      * Defaults to true.
      */
-    'production' => true,
+    //'production' => true,
+    'production' => false,
 
 
 
@@ -865,12 +879,12 @@ $config = [
     'authproc.idp' => [
         /* Enable the authproc filter below to add URN prefixes to all attributes
         10 => array[
-            'class' => 'core:AttributeMap', 'addurnprefix'
+             'class' => 'core:AttributeMap', 'addurnprefix'
         ],
         */
         /* Enable the authproc filter below to automatically generated eduPersonTargetedID.
         20 => 'core:TargetedID',
-        */
+         */
 
         // Adopts language from attribute to use in UI
         30 => 'core:LanguageAdaptor',
@@ -897,7 +911,7 @@ $config = [
             'subject' => 'distinguishedName',
             '%replace',
         ],
-        */
+         */
 
         /*
          * Consent module is enabled (with no permanent storage, using cookies).
@@ -909,7 +923,7 @@ $config = [
             'focus' => 'yes',
             'checked' => true
         ],
-        */
+         */
         // If language is set in Consent module it will be added as an attribute.
         99 => 'core:LanguageAdaptor',
     ],
