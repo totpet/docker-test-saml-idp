@@ -878,7 +878,7 @@ $config = [
      */
     'authproc.idp' => [
         /* Enable the authproc filter below to add URN prefixes to all attributes
-        10 => array[
+        10 => [
              'class' => 'core:AttributeMap', 'addurnprefix'
         ],
         */

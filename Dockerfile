@@ -10,7 +10,7 @@ RUN apt-get update && \
     rm -r /var/lib/apt/lists/*
 
 # SimpleSAMLphp
-ARG SIMPLESAMLPHP_VERSION=1.17.4
+ARG SIMPLESAMLPHP_VERSION=1.17.5
 ADD https://github.com/simplesamlphp/simplesamlphp/releases/download/v$SIMPLESAMLPHP_VERSION/simplesamlphp-$SIMPLESAMLPHP_VERSION.tar.gz /tmp/simplesamlphp.tar.gz
 
 RUN tar xzf /tmp/simplesamlphp.tar.gz -C /tmp && \

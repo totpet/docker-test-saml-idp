@@ -16,8 +16,6 @@ $metadata['__DYNAMIC:1__'] = [
     // X.509 key and certificate. Relative to the cert directory.
     'privatekey' => 'server.pem',
     'certificate' => 'server.crt',
-    'sign.logout' => true,
-    'redirect.sign' => true,
 
     /*
      * Authentication source to use. Must be one that is configured in
@@ -26,8 +24,8 @@ $metadata['__DYNAMIC:1__'] = [
     'auth' => 'example-userpass',
 
     /* Uncomment the following to use the uri NameFormat on attributes. */
-
     'attributes.NameFormat' => 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri',
+
     'userid.attribute' => 'uid',
     'scope' => [ getenv('VIRTUAL_HOST') ],
 
@@ -63,7 +61,6 @@ $metadata['__DYNAMIC:1__'] = [
 
         /*
          * Search attribute "distinguishedName" for pattern and replaces if found
-
         60 => [
             'class' => 'core:AttributeAlter',
             'pattern' => '/OU=studerende/',
@@ -75,7 +72,6 @@ $metadata['__DYNAMIC:1__'] = [
 
         /*
          * Consent module is enabled (with no permanent storage, using cookies).
-
         90 => [
             'class' => 'consent:Consent',
             'store' => 'consent:Cookie',
@@ -93,8 +89,12 @@ $metadata['__DYNAMIC:1__'] = [
      */
     /*
     'RegistrationInfo' => [
-        'authority' => 'metadata.lab.hexaa.eu',
-        'instant' => '2019-01-25T00:00:00Z',
+        'authority' => 'urn:mace:example.org',
+        'instant' => '2008-01-17T11:28:03Z',
+        'policies' => [
+            'en' => 'http://example.org/policy',
+            'es' => 'http://example.org/politica',
+        ],
     ],
     */
 ];
