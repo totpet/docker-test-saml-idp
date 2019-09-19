@@ -17,6 +17,9 @@ RUN tar xzf /tmp/simplesamlphp.tar.gz -C /tmp && \
     rm -f /tmp/simplesamlphp.tar.gz  && \
     mv /tmp/simplesamlphp-* /var/www/simplesamlphp && \
     touch /var/www/simplesamlphp/modules/exampleauth/enable
+
+WORKDIR /var/www/simplesamlphp
+
 COPY config/simplesamlphp/config.php /var/www/simplesamlphp/config
 COPY config/simplesamlphp/authsources.php /var/www/simplesamlphp/config
 COPY config/simplesamlphp/server.crt /var/www/simplesamlphp/cert/
@@ -29,6 +32,3 @@ COPY config/apache/simplesamlphp.conf /etc/apache2/sites-available
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
     a2dissite 000-default.conf default-ssl.conf && \
     a2ensite simplesamlphp.conf
-
-# Set work dir
-WORKDIR /var/www/simplesamlphp

@@ -1,0 +1,63 @@
+FROM php:7.3-apache
+MAINTAINER Gyula Szabó <gyufi@szabocsalad.com>
+
+ENV VIRTUAL_HOST idp
+ENV MDX_URL http://localhost/md.xml
+
+# Utilities
+RUN apt-get update && \
+    apt-get -y install apt-transport-https curl git unzip libldb-dev libldap2-dev --no-install-recommends && \
+    rm -r /var/lib/apt/lists/*
+
+# SimpleSAMLphp
+ARG SIMPLESAMLPHP_VERSION=1.17.6
+
+
+
+#ARG SIMPLESAMLPHP_VERSION_DEV=master
+
+# 1.17.6
+#ARG SIMPLESAMLPHP_VERSION_DEV=381bb09e98267c406386df747378564fef499a94
+
+# master on 2019-09-19 14
+#ARG SIMPLESAMLPHP_VERSION_DEV=1a6c8f371d57a1d958823f60cdbe2c4783cb67e1
+
+ARG SIMPLESAMLPHP_VERSION_DEV=b278b2b41b6400b48ed0fc44ce41f3f0fa846e31
+
+#ADD https://github.com/simplesamlphp/simplesamlphp/releases/download/v$SIMPLESAMLPHP_VERSION/simplesamlphp-$SIMPLESAMLPHP_VERSION.tar.gz /tmp/simplesamlphp.tar.gz
+ADD https://github.com/simplesamlphp/simplesamlphp/archive/${SIMPLESAMLPHP_VERSION_DEV}.tar.gz /tmp/simplesamlphp.tar.gz
+
+RUN tar xzf /tmp/simplesamlphp.tar.gz -C /tmp && \
+    rm -f /tmp/simplesamlphp.tar.gz  && \
+    mv /tmp/simplesamlphp-* /var/www/simplesamlphp && \
+    touch /var/www/simplesamlphp/modules/exampleauth/enable
+
+WORKDIR /var/www/simplesamlphp
+RUN cp -r config-templates/* config/ && \
+    cp -r metadata-templates/* metadata/
+
+COPY config/simplesamlphp/config.php /var/www/simplesamlphp/config
+COPY config/simplesamlphp/authsources.php /var/www/simplesamlphp/config
+COPY config/simplesamlphp/server.crt /var/www/simplesamlphp/cert/
+COPY config/simplesamlphp/server.pem /var/www/simplesamlphp/cert/
+COPY config/simplesamlphp/saml20-idp-hosted.php /var/www/simplesamlphp/metadata/saml20-idp-hosted.php
+
+
+RUN docker-php-ext-install ldap && \
+    php --ini && \
+    curl -sS https://getcomposer.org/installer | php --
+
+#RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+#RUN apt-get install -yV nodejs
+
+RUN php composer.phar install --no-interaction --no-progress --optimize-autoloader --prefer-source --no-ansi  # --ignore-platform-reqs
+#RUN npm install
+#RUN npm run build
+
+
+# Apache
+COPY config/apache/ports.conf /etc/apache2
+COPY config/apache/simplesamlphp.conf /etc/apache2/sites-available
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
+    a2dissite 000-default.conf default-ssl.conf && \
+    a2ensite simplesamlphp.conf
